@@ -9,7 +9,7 @@ import (
   "os"
   "strings"
 
-  svc "github.com/the2sang/server-streaming/service"
+  svc "github.com/practicalgo/code/chap9/server-streaming/service"
   "google.golang.org/grpc"
 )
 
@@ -36,10 +36,15 @@ func (s *userService) GetUser(ctx context.Context, in *svc.UserGetRequest) (*svc
   return &svc.UserGetReply{User: &u,}, nil
 }
 
+
 func (s *repoService) GetRepos(in *svc.RepoGetRequest, stream svc.Repo_GetReposServer,) error {
   log.Printf("Recieved request for repo with CreateId: %s Id: %s\n", in.CreatorId, in.Id,)
   repo := svc.Repository{
-    Owner: &svc.User{Id: in.CreatorId, FirstName: "Jane"},
+    Id: in.Id,
+    Owner: &svc.User{
+      Id: in.CreatorId, 
+      FirstName: "Jane",
+    },
   }
   cnt := 1
   for {
