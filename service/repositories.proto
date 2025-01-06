@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "users.proto";
 
-option go_package = "github.com/the2sang/server-streaming/service";
+option go_package = "github.com/practicalgo/code/chap9/server-streaming/service";
 
 service Repo {
   rpc GetRepos (RepoGetRequest) returns (stream RepoGetReply) {}

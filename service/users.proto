@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/the2sang/user-service/service";
+option go_package = "github.com/practicalgo/code/chap9/server-streaming/service";
 
 service Users { 
   rpc GetUser (UserGetRequest) returns (UserGetReply) {}
