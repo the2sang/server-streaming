@@ -14,14 +14,14 @@ import (
 )
 
 type userService struct {
-  svc.UnimplementedUserServer
+  svc.UnimplementedUsersServer
 }
 
 type repoService struct {
   svc.UnimplementedRepoServer
 }
 
-func (s *userService) GetUser(ctx context.Context, in *svc.UserGetRequest) (*svc.userGetReply, error) {
+func (s *userService) GetUser(ctx context.Context, in *svc.UserGetRequest) (*svc.UserGetReply, error) {
   log.Printf("Received request for user with Email: %s Id: %s\n", in.Email, in.Id)
   components := strings.Split(in.Email, "@")
   if len(components) != 2 {
@@ -33,13 +33,13 @@ func (s *userService) GetUser(ctx context.Context, in *svc.UserGetRequest) (*svc
     LastName: components[1],
     Age: 36,
   }
-  return &svc.userGetReply{User: &u,}, nil
+  return &svc.UserGetReply{User: &u,}, nil
 }
 
-func (s *repoService) GetRepos(in *svc.RepoGetRequest, stream svc.Repo_GetRepoServer,) error {
-  log.Printf("Recieved request for repo with CreateId: %s Id: %s\n", in.CreateId, in.Id,)
+func (s *repoService) GetRepos(in *svc.RepoGetRequest, stream svc.Repo_GetReposServer,) error {
+  log.Printf("Recieved request for repo with CreateId: %s Id: %s\n", in.CreatorId, in.Id,)
   repo := svc.Repository{
-    Owner: &svc.User{Id: in.CreateId, FirstName: "Jane"},
+    Owner: &svc.User{Id: in.CreatorId, FirstName: "Jane"},
   }
   cnt := 1
   for {
